@@ -39,6 +39,8 @@
     _splitViewController.delegate = _splitVCDelegate;
     _splitViewController.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
     
+    [[UINavigationBar appearance] setShadowImage:[[UIImage alloc] init]];
+    
     [self.window setRootViewController:_splitViewController];
     [self.window makeKeyAndVisible];
     

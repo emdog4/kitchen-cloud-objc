@@ -11,6 +11,8 @@
 #import "RecipeDetailViewController.h"
 #import "EmptyRecipeViewController.h"
 
+#import "RecipeListCard.h"
+
 #import "RecipeListTableViewCell.h"
 #import "RecipeTextViewController.h"
 
@@ -64,12 +66,13 @@ static NSString *ReuseableTableViewCellId = @"ReuseableTableViewCellId";
     
     _navItem = [[UINavigationItem alloc] init];
     //_navItem.title = ;
+    _navItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Cloud"] style:UIBarButtonItemStylePlain target:self action:@selector(add:)];
     //_navItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(add:)];
-    NSAttributedString *_title = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"All Recipes", @"All Recipes")];
+    //NSAttributedString *_title = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"All Recipes", @"All Recipes")];
     
     [_navBar pushNavigationItem:_navItem animated:YES];
     
-    [_navBar setBackgroundImage:[UIImage imageNamed:@"Status-Bar"] forBarMetrics:UIBarMetricsDefault];
+    [_navBar setBackgroundImage:[UIImage imageNamed:@"NavBar"] forBarMetrics:UIBarMetricsDefault];
     
     _mainTableView = [[UITableView alloc] init];
     _mainTableView.dataSource = self;
@@ -117,10 +120,10 @@ static NSString *ReuseableTableViewCellId = @"ReuseableTableViewCellId";
     
     [self.view addConstraints:constraints];
     
-    Class RecipeListTableViewCellClass = RecipeListTableViewCell.class;
+    Class RecipeListCardClass = RecipeListCard.class;
     
-    [_mainTableView registerClass:RecipeListTableViewCellClass forCellReuseIdentifier:NSStringFromClass(RecipeListTableViewCellClass)];
-    [_searchResultsTableView registerClass:RecipeListTableViewCellClass forCellReuseIdentifier:NSStringFromClass(RecipeListTableViewCellClass)];
+    [_mainTableView registerClass:RecipeListCard.class forCellReuseIdentifier:NSStringFromClass(RecipeListCardClass)];
+    [_searchResultsTableView registerClass:RecipeListCard.class forCellReuseIdentifier:NSStringFromClass(RecipeListCardClass)];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -137,10 +140,13 @@ static NSString *ReuseableTableViewCellId = @"ReuseableTableViewCellId";
         _context = [((AppDelegate *)[UIApplication sharedApplication].delegate) managedObjectContext];
     }
     
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:NSStringFromClass(Recipe.class)];
-    NSError *error;
+    //NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:NSStringFromClass(Recipe.class)];
+    //NSError *error;
     
-    _dataAllRecipes = [[_context executeFetchRequest:fetchRequest error:&error] mutableCopy];
+    //_dataAllRecipes = [[_context executeFetchRequest:fetchRequest error:&error] mutableCopy];
+    _dataAllRecipes = @[@"garlic butter spaghetti with spinach, sun-dried tomatoes and olives",
+                        @"garlic butter spaghetti with spinach, sun-dried tomatoes and olives",
+                        @"garlic butter spaghetti with spinach, sun-dried tomatoes and olives",];
     
     [_mainTableView reloadData];
 }
@@ -174,22 +180,16 @@ static NSString *ReuseableTableViewCellId = @"ReuseableTableViewCellId";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    RecipeListTableViewCell *cell = (RecipeListTableViewCell *)[tableView dequeueReusableCellWithIdentifier:NSStringFromClass(RecipeListTableViewCell.class) forIndexPath:indexPath];
+    RecipeListCard *cell = (RecipeListCard *)[tableView dequeueReusableCellWithIdentifier:NSStringFromClass(RecipeListCard.class) forIndexPath:indexPath];
     
     NSInteger row = indexPath.row;
     
     // Choose the correct datasource
     NSArray *_datasource = ((tableView == _searchResultsTableView) ? _dataSearchedRecipes : _dataAllRecipes);
+    //Recipe *recipe = (Recipe *)[_datasource objectAtIndex:row];
     
-    Recipe *recipe = (Recipe *)[_datasource objectAtIndex:row];
+    cell.recipeName.text = [_datasource objectAtIndex:row];
     
-    cell.recipeName.text = recipe.name;
-    cell.recipeName.numberOfLines = 0;
-    cell.prep.text = [recipe.prep stringValue];
-    cell.total.text = [recipe.total stringValue];
-    cell.serves.text = [recipe.serves stringValue];
-    cell.difficulty.text = @"medium";
-    cell.tags.text = @"tags here";
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;

@@ -34,8 +34,11 @@
         _mainButton = [[UIButton alloc] init];
         _mainButton.translatesAutoresizingMaskIntoConstraints = NO;
 
-        [_mainButton setImage:[UIImage imageNamed:@"Rectangle-1"] forState:UIControlStateNormal];
-        [_mainButton setImage:[UIImage imageNamed:@"Rectangle-2"] forState:UIControlStateHighlighted];
+        UIColor *pattern = [UIColor colorWithPatternImage:[UIImage imageNamed:@"card"]];
+
+        [_mainButton setBackgroundColor:pattern];
+//        [_mainButton setImage:[UIImage imageNamed:@"Rectangle-1"] forState:UIControlStateNormal];
+//        [_mainButton setImage:[UIImage imageNamed:@"Rectangle-2"] forState:UIControlStateHighlighted];
         
         _recipeName = [[UILabel alloc] init];
         _recipeName.translatesAutoresizingMaskIntoConstraints = NO;
