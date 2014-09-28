@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		D22AD91519D52E52006184CF /* KitchenCloudTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D22AD91419D52E52006184CF /* KitchenCloudTests.m */; };
 		D237C0C219D738A7004FE9F0 /* RecipeListCard.m in Sources */ = {isa = PBXBuildFile; fileRef = D237C0C119D738A7004FE9F0 /* RecipeListCard.m */; };
+		D237C0C719D77A9E004FE9F0 /* View.xib in Resources */ = {isa = PBXBuildFile; fileRef = D237C0C619D77A9E004FE9F0 /* View.xib */; };
 		D25AFCC919D5FE3300847B2B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D25AFC9019D5FE3300847B2B /* LaunchScreen.xib */; };
 		D25AFCCA19D5FE3300847B2B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D25AFC9319D5FE3300847B2B /* Images.xcassets */; };
 		D25AFCCB19D5FE3300847B2B /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D25AFC9419D5FE3300847B2B /* Info.plist */; };
@@ -56,6 +57,7 @@
 		D22AD91419D52E52006184CF /* KitchenCloudTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KitchenCloudTests.m; sourceTree = "<group>"; };
 		D237C0C019D738A7004FE9F0 /* RecipeListCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecipeListCard.h; sourceTree = "<group>"; };
 		D237C0C119D738A7004FE9F0 /* RecipeListCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipeListCard.m; sourceTree = "<group>"; };
+		D237C0C619D77A9E004FE9F0 /* View.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = View.xib; sourceTree = "<group>"; };
 		D25AFC9119D5FE3300847B2B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		D25AFC9319D5FE3300847B2B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		D25AFC9419D5FE3300847B2B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Info.plist; sourceTree = "<group>"; };
@@ -178,6 +180,24 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		D237C0C319D75C74004FE9F0 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				D25AFCE419D6009F00847B2B /* TextFieldTableViewCell.h */,
+				D25AFCE519D6009F00847B2B /* TextFieldTableViewCell.m */,
+				D25AFCBF19D5FE3300847B2B /* RecipeCardTextView.h */,
+				D25AFCC019D5FE3300847B2B /* RecipeCardTextView.m */,
+				D25AFCC119D5FE3300847B2B /* RecipeDetailsTableViewHeaderView.h */,
+				D25AFCC219D5FE3300847B2B /* RecipeDetailsTableViewHeaderView.m */,
+				D25AFCC319D5FE3300847B2B /* RecipeIngredientTableViewCell.h */,
+				D25AFCC419D5FE3300847B2B /* RecipeIngredientTableViewCell.m */,
+				D25AFCC719D5FE3300847B2B /* RecipeStepTableViewCell.h */,
+				D25AFCC819D5FE3300847B2B /* RecipeStepTableViewCell.m */,
+				D237C0C619D77A9E004FE9F0 /* View.xib */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
 		D25AFC8F19D5FE3300847B2B /* Base.lproj */ = {
 			isa = PBXGroup;
 			children = (
@@ -262,18 +282,9 @@
 			children = (
 				D237C0C019D738A7004FE9F0 /* RecipeListCard.h */,
 				D237C0C119D738A7004FE9F0 /* RecipeListCard.m */,
-				D25AFCE419D6009F00847B2B /* TextFieldTableViewCell.h */,
-				D25AFCE519D6009F00847B2B /* TextFieldTableViewCell.m */,
-				D25AFCBF19D5FE3300847B2B /* RecipeCardTextView.h */,
-				D25AFCC019D5FE3300847B2B /* RecipeCardTextView.m */,
-				D25AFCC119D5FE3300847B2B /* RecipeDetailsTableViewHeaderView.h */,
-				D25AFCC219D5FE3300847B2B /* RecipeDetailsTableViewHeaderView.m */,
-				D25AFCC319D5FE3300847B2B /* RecipeIngredientTableViewCell.h */,
-				D25AFCC419D5FE3300847B2B /* RecipeIngredientTableViewCell.m */,
 				D25AFCC519D5FE3300847B2B /* RecipeListTableViewCell.h */,
 				D25AFCC619D5FE3300847B2B /* RecipeListTableViewCell.m */,
-				D25AFCC719D5FE3300847B2B /* RecipeStepTableViewCell.h */,
-				D25AFCC819D5FE3300847B2B /* RecipeStepTableViewCell.m */,
+				D237C0C319D75C74004FE9F0 /* Cells */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -362,6 +373,7 @@
 				D25AFCC919D5FE3300847B2B /* LaunchScreen.xib in Resources */,
 				D25AFCDD19D5FE3300847B2B /* measurements.plist in Resources */,
 				D25AFCCA19D5FE3300847B2B /* Images.xcassets in Resources */,
+				D237C0C719D77A9E004FE9F0 /* View.xib in Resources */,
 				D25AFCCB19D5FE3300847B2B /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

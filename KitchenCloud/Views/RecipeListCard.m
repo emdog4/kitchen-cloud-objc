@@ -27,6 +27,10 @@
         
         _mainButton = [[UIButton alloc] init];
         _mainButton.translatesAutoresizingMaskIntoConstraints = NO;
+        
+        _mainButton.layer.shadowOffset = CGSizeMake(0, 2);
+        _mainButton.layer.shadowRadius = 2;
+        _mainButton.layer.shadowOpacity = 0.4;
 
         UIColor *pattern = [UIColor colorWithPatternImage:[UIImage imageNamed:@"card"]];
 
@@ -34,10 +38,7 @@
         
         _recipeName = [[UILabel alloc] init];
         _recipeName.translatesAutoresizingMaskIntoConstraints = NO;
-        _recipeName.font = [UIFont fontWithName:@"Helvetica Neue Regular" size:72.0];
-        _recipeName.textAlignment = NSTextAlignmentJustified;
         _recipeName.numberOfLines = 0;
-        
         
         NSDictionary *_bindings = NSDictionaryOfVariableBindings(_recipeName);
         

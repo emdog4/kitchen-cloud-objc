@@ -37,13 +37,16 @@
         UIColor *pattern = [UIColor colorWithPatternImage:[UIImage imageNamed:@"card"]];
 
         [_mainButton setBackgroundColor:pattern];
-//        [_mainButton setImage:[UIImage imageNamed:@"Rectangle-1"] forState:UIControlStateNormal];
-//        [_mainButton setImage:[UIImage imageNamed:@"Rectangle-2"] forState:UIControlStateHighlighted];
         
         _recipeName = [[UILabel alloc] init];
         _recipeName.translatesAutoresizingMaskIntoConstraints = NO;
-        _recipeName.font = [UIFont fontWithName:@"Helvetica Neue Regular" size:17.0];
+        //_recipeName.font = [UIFont fontWithName:@"Helvetica Neue Regular" size:17.0];
         _recipeName.numberOfLines = 0;
+        
+        NSShadow *drop = [[NSShadow alloc] init];
+        drop.shadowOffset = CGSizeMake(0, 2);
+        drop.shadowColor = [UIColor blackColor];
+        drop.shadowBlurRadius = 4;
         
         _prep = [[UILabel alloc] init];
         _total = [[UILabel alloc] init];

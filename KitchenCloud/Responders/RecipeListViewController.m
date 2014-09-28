@@ -65,10 +65,11 @@ static NSString *ReuseableTableViewCellId = @"ReuseableTableViewCellId";
     _navBar.delegate = self;
     
     _navItem = [[UINavigationItem alloc] init];
-    //_navItem.title = ;
-    _navItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Cloud"] style:UIBarButtonItemStylePlain target:self action:@selector(add:)];
-    //_navItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(add:)];
-    //NSAttributedString *_title = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"All Recipes", @"All Recipes")];
+    
+    UIButton* customButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [customButton setImage:[UIImage imageNamed:@"Cloud"] forState:UIControlStateNormal];
+    [customButton sizeToFit];
+    _navItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:customButton];
     
     [_navBar pushNavigationItem:_navItem animated:YES];
     
@@ -145,8 +146,8 @@ static NSString *ReuseableTableViewCellId = @"ReuseableTableViewCellId";
     
     //_dataAllRecipes = [[_context executeFetchRequest:fetchRequest error:&error] mutableCopy];
     _dataAllRecipes = @[@"garlic butter spaghetti with spinach, sun-dried tomatoes and olives",
-                        @"garlic butter spaghetti with spinach, sun-dried tomatoes and olives",
-                        @"garlic butter spaghetti with spinach, sun-dried tomatoes and olives",];
+                        @"creamy pesto pasta with vegan alfredo sauce and vegan banana and strawberry ice cream for desert",
+                        @"spicy thai noodles",@"dinner for breakfast"];
     
     [_mainTableView reloadData];
 }
@@ -158,7 +159,8 @@ static NSString *ReuseableTableViewCellId = @"ReuseableTableViewCellId";
     
     _dataSearchedRecipes = [NSArray new];
     
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name contains[c] %@", searchText];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"contains[c] %@", searchText];
+    //NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name contains[c] %@", searchText];
     
     _dataSearchedRecipes = [_dataAllRecipes filteredArrayUsingPredicate:predicate];
     
@@ -187,8 +189,29 @@ static NSString *ReuseableTableViewCellId = @"ReuseableTableViewCellId";
     // Choose the correct datasource
     NSArray *_datasource = ((tableView == _searchResultsTableView) ? _dataSearchedRecipes : _dataAllRecipes);
     //Recipe *recipe = (Recipe *)[_datasource objectAtIndex:row];
+
     
-    cell.recipeName.text = [_datasource objectAtIndex:row];
+    UIFont *font = [UIFont fontWithName:@"Georgia-BoldItalic" size:30.0];
+    NSMutableParagraphStyle *paragraphstyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphstyle.alignment = NSTextAlignmentJustified;
+    paragraphstyle.lineBreakMode = NSLineBreakByWordWrapping;
+    NSShadow *drop = [[NSShadow alloc] init];
+    drop.shadowOffset = CGSizeMake(0, 1);
+    drop.shadowBlurRadius = 2;
+    drop.shadowColor = [UIColor blackColor];
+    UIColor *textforeground = [UIColor colorWithRed:0.37 green:0.75 blue:0.99 alpha:1];
+    UIColor *stroke = [UIColor whiteColor];
+    NSNumber *strokewidth = [NSNumber numberWithFloat:-3.0];
+    NSNumber *kerning = [NSNumber numberWithInt:5];
+    
+    NSArray *objects = @[font, paragraphstyle, drop, textforeground, stroke, strokewidth, kerning];
+    NSArray *keys = @[NSFontAttributeName, NSParagraphStyleAttributeName, NSShadowAttributeName, NSForegroundColorAttributeName, NSStrokeColorAttributeName, NSStrokeWidthAttributeName, NSKernAttributeName];
+    
+    NSDictionary *attrs = [[NSDictionary alloc] initWithObjects:objects forKeys:keys];
+    
+    NSAttributedString *atrString = [[NSAttributedString alloc] initWithString:[_datasource objectAtIndex:row] attributes:attrs];
+    
+    cell.recipeName.attributedText = atrString;
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
