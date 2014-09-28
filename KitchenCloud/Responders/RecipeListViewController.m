@@ -28,6 +28,7 @@
 
     NSArray *_dataAllRecipes;
     NSArray *_dataSearchedRecipes;
+    NSArray *_ingredients;
     
     NSManagedObjectContext *_context;
     
@@ -48,6 +49,14 @@ static NSString *ReuseableTableViewCellId = @"ReuseableTableViewCellId";
     if (self = [super init])
     {
         self.title = NSLocalizedString(@"All Recipes", @"All Recipes");
+        
+        _ingredients = @[@"1 lb spaghetti",
+                         @"1/2 cup earth balance",
+                         @"10 cloves garlic minced",
+                         @"8oz spinach",
+                         @"1 cup chopped kalamata olives",
+                         @"1 cup chopped dry sun-dried tomatoes",
+                         @"salt and pepper to taste"];
     }
     return self;
 }
@@ -211,8 +220,9 @@ static NSString *ReuseableTableViewCellId = @"ReuseableTableViewCellId";
     
     NSAttributedString *atrString = [[NSAttributedString alloc] initWithString:[_datasource objectAtIndex:row] attributes:attrs];
     
-    cell.recipeName.attributedText = atrString;
-    
+    cell.recipeLabel.attributedText = atrString;
+    cell.ingredientsLabel.text = [_ingredients componentsJoinedByString:@", "];
+
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;

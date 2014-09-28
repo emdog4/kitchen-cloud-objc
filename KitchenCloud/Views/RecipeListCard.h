@@ -10,8 +10,8 @@
 
 @interface RecipeListCard : UITableViewCell
 
-@property (strong, nonatomic) UILabel *recipeName;
-
+@property (strong, nonatomic) UILabel *recipeLabel;
+@property (strong, nonatomic) UILabel *ingredientsLabel;
 
 
 @end
