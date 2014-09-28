@@ -56,7 +56,7 @@
         
         [_backButton addTarget:self action:@selector(touchDown:) forControlEvents:UIControlEventTouchDown];
         [_backButton addTarget:self action:@selector(touchUp:) forControlEvents:UIControlEventTouchUpInside];
-        [_backButton addTarget:self action:@selector(touchUp:) forControlEvents:UIControlEventTouchUpOutside];
+        //[_backButton addTarget:self action:@selector(touchUp:) forControlEvents:UIControlEventTouchUpOutside];
         
         [_backButton setBackgroundColor:_pattern];
         
@@ -135,40 +135,41 @@
 
 - (void)touchUp:(UIButton *)sender
 {
-    [UIView animateWithDuration:0.1
+    [UIView animateWithDuration:0.5
                           delay:0.0
          usingSpringWithDamping:0.8
           initialSpringVelocity:1.0
-                        options:UIViewAnimationOptionCurveEaseOut
+                        options:UIViewAnimationOptionCurveLinear
                      animations:^{
-                         sender.layer.transform = CATransform3DIdentity;
-                     }
-                     completion:^(BOOL finished) {
                          
-                        UIViewAnimationOptions option = UIViewAnimationOptionTransitionNone;
-                        UIButton *destination;
-                        
-                        if (sender == _mainButton)
-                        {
-                            option = UIViewAnimationOptionTransitionFlipFromRight;
-                            destination = _backButton;
-                        }
-                        else if (sender == _backButton)
-                        {
-                            option = UIViewAnimationOptionTransitionFlipFromLeft;
-                            destination = _mainButton;
-                        }
-                        
-                        if (sender && destination)
-                        {
-                            destination.hidden = NO;
+                         sender.layer.transform = CATransform3DIdentity;
+                         
+                         UIViewAnimationOptions option = UIViewAnimationOptionTransitionNone;
+                         UIButton *destination;
+                         
+                         if (sender == _mainButton)
+                         {
+                             option = UIViewAnimationOptionTransitionFlipFromRight;
+                             destination = _backButton;
+                         }
+                         else if (sender == _backButton)
+                         {
+                             option = UIViewAnimationOptionTransitionFlipFromLeft;
+                             destination = _mainButton;
+                         }
+                         
+                         if (sender && destination)
+                         {
+                             destination.hidden = NO;
+                             
+                             [UIView transitionFromView:sender toView:destination duration:0.5 options:option completion:^(BOOL finished) {
+                                 [self setNeedsUpdateConstraints];
+                                 sender.hidden = YES;
+                             }];
+                         }
 
-                            [UIView transitionFromView:sender toView:destination duration:0.5 options:option completion:^(BOOL finished) {
-                                [self setNeedsUpdateConstraints];
-                                sender.hidden = YES;
-                            }];
-                        }
                      }
+                     completion:nil
      ];
 }
 
