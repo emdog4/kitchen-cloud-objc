@@ -57,65 +57,72 @@ static NSString *ReuseableTableViewCellId = @"ReuseableTableViewCellId";
                          @"1 cup chopped kalamata olives",
                          @"1 cup chopped dry sun-dried tomatoes",
                          @"salt and pepper to taste"];
+        /// View
+        self.view = [[UIView alloc] init];
+        self.edgesForExtendedLayout = UIRectEdgeTop;
+        [self.view addSubview:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Background"]]];
+        
+        /// Nav Bar
+        _navBar = [[UINavigationBar alloc] init];
+        _navBar.translatesAutoresizingMaskIntoConstraints = NO;
+        _navBar.delegate = self;
+        
+        _navItem = [[UINavigationItem alloc] init];
+        
+        UIButton* customButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [customButton setImage:[UIImage imageNamed:@"Cloud"] forState:UIControlStateNormal];
+        [customButton sizeToFit];
+        _navItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:customButton];
+        
+        [_navBar pushNavigationItem:_navItem animated:YES];
+        [_navBar setBackgroundImage:[UIImage imageNamed:@"NavBar"] forBarMetrics:UIBarMetricsDefault];
+        
+        /// Main Table View
+        _mainTableView = [[UITableView alloc] init];
+        _mainTableView.dataSource = self;
+        _mainTableView.delegate = self;
+        _mainTableView.translatesAutoresizingMaskIntoConstraints = NO;
+        _mainTableView.estimatedRowHeight = 150.0;
+        _mainTableView.rowHeight = UITableViewAutomaticDimension;
+        _mainTableView.backgroundColor = [UIColor clearColor];
+        _mainTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        
+        /// Search Controller
+        UITableViewController *_searchResultsTableVC = [[UITableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+        
+        _searchController = [[UISearchController alloc] initWithSearchResultsController:_searchResultsTableVC];
+        
+        _searchResultsTableView = ((UITableViewController *)_searchController.searchResultsController).tableView;
+        _searchResultsTableView.delegate = self;
+        _searchResultsTableView.dataSource = self;
+        _searchResultsTableView.estimatedRowHeight = 150.0;
+        _searchResultsTableView.rowHeight = UITableViewAutomaticDimension;
+        
+        _searchController.searchResultsUpdater = self;
+        _searchController.delegate = self;
+        
+        _searchController.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
+        _searchController.searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
+        _searchController.searchBar.searchBarStyle = UISearchBarStyleMinimal;
+        [_searchController.searchBar sizeToFit];
+        
+        _mainTableView.tableHeaderView = _searchController.searchBar;
+        
+        /// Register Table View Cell Classes
+        Class RecipeListCardClass = RecipeListCard.class;
+        
+        [_mainTableView registerClass:RecipeListCard.class forCellReuseIdentifier:NSStringFromClass(RecipeListCardClass)];
+        [_searchResultsTableView registerClass:RecipeListCard.class forCellReuseIdentifier:NSStringFromClass(RecipeListCardClass)];
+        
+        [self.view setNeedsUpdateConstraints];
     }
+    
     return self;
 }
 
-- (void)loadView
+
+- (void)updateViewConstraints
 {
-    [super loadView];
-    
-    self.view = [[UIView alloc] init];
-    self.edgesForExtendedLayout = UIRectEdgeTop;
-    [self.view addSubview:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Background"]]];
-        
-    _navBar = [[UINavigationBar alloc] init];
-    _navBar.translatesAutoresizingMaskIntoConstraints = NO;
-    _navBar.delegate = self;
-    
-    _navItem = [[UINavigationItem alloc] init];
-    
-    UIButton* customButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [customButton setImage:[UIImage imageNamed:@"Cloud"] forState:UIControlStateNormal];
-    [customButton sizeToFit];
-    _navItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:customButton];
-    
-    [_navBar pushNavigationItem:_navItem animated:YES];
-    
-    [_navBar setBackgroundImage:[UIImage imageNamed:@"NavBar"] forBarMetrics:UIBarMetricsDefault];
-    
-    _mainTableView = [[UITableView alloc] init];
-    _mainTableView.dataSource = self;
-    _mainTableView.delegate = self;
-    _mainTableView.translatesAutoresizingMaskIntoConstraints = NO;
-    _mainTableView.estimatedRowHeight = 150.0;
-    _mainTableView.rowHeight = UITableViewAutomaticDimension;
-    _mainTableView.backgroundColor = [UIColor clearColor];
-    _mainTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
-    UITableViewController *_searchResultsTableVC = [[UITableViewController alloc] initWithStyle:UITableViewStyleGrouped];
-
-    _searchController = [[UISearchController alloc] initWithSearchResultsController:_searchResultsTableVC];
-
-    _searchResultsTableView = ((UITableViewController *)_searchController.searchResultsController).tableView;
-    _searchResultsTableView.delegate = self;
-    _searchResultsTableView.dataSource = self;
-    _searchResultsTableView.estimatedRowHeight = 150.0;
-    _searchResultsTableView.rowHeight = UITableViewAutomaticDimension;
-    
-    _searchController.searchResultsUpdater = self;
-    _searchController.delegate = self;
-    
-    _searchController.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
-    _searchController.searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
-    _searchController.searchBar.searchBarStyle = UISearchBarStyleMinimal;
-    [_searchController.searchBar sizeToFit];
-    
-    [_mainTableView registerClass:UITableViewCell.class forCellReuseIdentifier:ReuseableTableViewCellId];
-    [_searchResultsTableView registerClass:UITableViewCell.class forCellReuseIdentifier:ReuseableTableViewCellId];
-    
-    _mainTableView.tableHeaderView = _searchController.searchBar;
-
     [self.view addSubview:_navBar];
     [self.view addSubview:_mainTableView];
     
@@ -130,10 +137,7 @@ static NSString *ReuseableTableViewCellId = @"ReuseableTableViewCellId";
     
     [self.view addConstraints:constraints];
     
-    Class RecipeListCardClass = RecipeListCard.class;
-    
-    [_mainTableView registerClass:RecipeListCard.class forCellReuseIdentifier:NSStringFromClass(RecipeListCardClass)];
-    [_searchResultsTableView registerClass:RecipeListCard.class forCellReuseIdentifier:NSStringFromClass(RecipeListCardClass)];
+    [super updateViewConstraints];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -168,7 +172,7 @@ static NSString *ReuseableTableViewCellId = @"ReuseableTableViewCellId";
     
     _dataSearchedRecipes = [NSArray new];
     
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"contains[c] %@", searchText];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF contains[c] %@", searchText];
     //NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name contains[c] %@", searchText];
     
     _dataSearchedRecipes = [_dataAllRecipes filteredArrayUsingPredicate:predicate];
@@ -198,9 +202,13 @@ static NSString *ReuseableTableViewCellId = @"ReuseableTableViewCellId";
     // Choose the correct datasource
     NSArray *_datasource = ((tableView == _searchResultsTableView) ? _dataSearchedRecipes : _dataAllRecipes);
     //Recipe *recipe = (Recipe *)[_datasource objectAtIndex:row];
-
     
-    UIFont *font = [UIFont fontWithName:@"Georgia-BoldItalic" size:30.0];
+    
+    //UIFontDescriptor *descriptor = [UIFontDescriptor fontDescriptorWithName:@"Georgia-BoldItalic" size:30.0];
+    //CGFloat size = [UIFont pre]
+    
+    UIFont *font = [UIFont fontWithName:@"HelveticaNeue" size:26.0];
+    
     NSMutableParagraphStyle *paragraphstyle = [[NSMutableParagraphStyle alloc] init];
     paragraphstyle.alignment = NSTextAlignmentJustified;
     paragraphstyle.lineBreakMode = NSLineBreakByWordWrapping;

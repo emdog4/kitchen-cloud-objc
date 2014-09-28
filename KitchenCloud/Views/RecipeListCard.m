@@ -37,7 +37,9 @@
         _mainButton.layer.shadowRadius = 2;
         _mainButton.layer.shadowOpacity = 0.4;
         
-        [_mainButton addTarget:self action:@selector(flip:) forControlEvents:UIControlEventTouchUpInside];
+        [_mainButton addTarget:self action:@selector(touchDown:) forControlEvents:UIControlEventTouchDown];
+        [_mainButton addTarget:self action:@selector(touchUp:) forControlEvents:UIControlEventTouchUpInside];
+        [_mainButton addTarget:self action:@selector(touchUp:) forControlEvents:UIControlEventTouchUpOutside];
         
         [_mainButton setBackgroundColor:_pattern];
         
@@ -52,13 +54,17 @@
         _backButton.layer.shadowRadius = 2;
         _backButton.layer.shadowOpacity = 0.4;
         
-        [_backButton addTarget:self action:@selector(flipBack:) forControlEvents:UIControlEventTouchUpInside];
+        [_backButton addTarget:self action:@selector(touchDown:) forControlEvents:UIControlEventTouchDown];
+        [_backButton addTarget:self action:@selector(touchUp:) forControlEvents:UIControlEventTouchUpInside];
+        [_backButton addTarget:self action:@selector(touchUp:) forControlEvents:UIControlEventTouchUpOutside];
         
         [_backButton setBackgroundColor:_pattern];
         
         _ingredientsLabel = [[UILabel alloc] init];
         _ingredientsLabel.translatesAutoresizingMaskIntoConstraints = NO;
         _ingredientsLabel.numberOfLines = 0;
+        
+        _backButton.hidden = YES;
 
         [self setNeedsUpdateConstraints];
         
@@ -120,22 +126,51 @@
     [super updateConstraints];
 }
 
-- (void)flip:(UIButton *)sender
+- (void)touchDown:(UIButton *)sender
 {
-    _backButton.hidden = NO;
-    [UIView transitionFromView:_mainButton toView:_backButton duration:0.5 options:UIViewAnimationOptionTransitionFlipFromRight completion:^(BOOL finished) {
-        [self setNeedsUpdateConstraints];
-        _mainButton.hidden = YES;
+    [UIView animateWithDuration:0.1 animations:^{
+        sender.layer.transform = CATransform3DMakeScale(0.9, 0.9, 1.0);
     }];
 }
 
-- (void)flipBack:(UIButton *)sender
+- (void)touchUp:(UIButton *)sender
 {
-    _mainButton.hidden = NO;
-    [UIView transitionFromView:_backButton toView:_mainButton duration:0.5 options:UIViewAnimationOptionTransitionFlipFromLeft completion:^(BOOL finished) {
-        [self setNeedsUpdateConstraints];
-        _backButton.hidden = YES;
-    }];
+    [UIView animateWithDuration:0.1
+                          delay:0.0
+         usingSpringWithDamping:0.8
+          initialSpringVelocity:1.0
+                        options:UIViewAnimationOptionCurveEaseOut
+                     animations:^{
+                         sender.layer.transform = CATransform3DIdentity;
+                     }
+                     completion:^(BOOL finished) {
+                         
+                        UIViewAnimationOptions option = UIViewAnimationOptionTransitionNone;
+                        UIButton *destination;
+                        
+                        if (sender == _mainButton)
+                        {
+                            option = UIViewAnimationOptionTransitionFlipFromRight;
+                            destination = _backButton;
+                        }
+                        else if (sender == _backButton)
+                        {
+                            option = UIViewAnimationOptionTransitionFlipFromLeft;
+                            destination = _mainButton;
+                        }
+                        
+                        if (sender && destination)
+                        {
+                            destination.hidden = NO;
+
+                            [UIView transitionFromView:sender toView:destination duration:0.5 options:option completion:^(BOOL finished) {
+                                [self setNeedsUpdateConstraints];
+                                sender.hidden = YES;
+                            }];
+                        }
+                     }
+     ];
 }
+
 
 @end
