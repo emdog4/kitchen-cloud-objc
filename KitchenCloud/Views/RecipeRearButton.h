@@ -15,6 +15,4 @@
 @property (strong, nonatomic) NSArray *quantities;
 @property (strong, nonatomic) UITableView *ingredientsTableView;
 
-- (instancetype)initWithArray:(NSArray *)ingredients andArray:(NSArray *)quantites;
-
 @end

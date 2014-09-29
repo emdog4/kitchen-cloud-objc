@@ -11,8 +11,7 @@
 
 @implementation RecipeFrontButton
 
-
-- (instancetype)initWithAttributedString:(NSAttributedString *)attributedString
+- (instancetype)init
 {
     if (self = [super init])
     {
@@ -20,9 +19,7 @@
         
         _recipeLabel = [[UILabel alloc] init];
         _recipeLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        _recipeLabel.attributedText = attributedString;
         _recipeLabel.numberOfLines = 0;
-        [_recipeLabel sizeToFit];
         
         [self setNeedsUpdateConstraints];
         [self updateConstraintsIfNeeded];

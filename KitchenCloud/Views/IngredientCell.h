@@ -13,6 +13,4 @@
 @property (strong, nonatomic) UILabel *ingredient;
 @property (strong, nonatomic) UILabel *quantity;
 
--(instancetype)initWithIngredient:(NSString *)ingredient andQuantity:(NSString *)quantity;
-
 @end

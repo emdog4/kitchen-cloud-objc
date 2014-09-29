@@ -12,17 +12,11 @@
 
 @implementation RecipeRearButton
 
-static NSString *ReuseId = @"CloudReuseId";
-
-
-- (instancetype)initWithArray:(NSArray *)ingredients andArray:(NSArray *)quantites
+-(instancetype)init
 {
     if (self = [super init])
     {
         self.translatesAutoresizingMaskIntoConstraints = NO;
-        
-        _ingredients = ingredients;
-        _quantities = quantites;
         
         _ingredientsTableView = [[UITableView alloc] init];
         _ingredientsTableView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -33,7 +27,7 @@ static NSString *ReuseId = @"CloudReuseId";
         _ingredientsTableView.backgroundColor = [UIColor clearColor];
         _ingredientsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         
-        [_ingredientsTableView registerClass:IngredientCell.class forCellReuseIdentifier:ReuseId];
+        [_ingredientsTableView registerClass:IngredientCell.class forCellReuseIdentifier:NSStringFromClass(IngredientCell.class)];
         
         [self setNeedsUpdateConstraints];
         [self updateConstraintsIfNeeded];
@@ -78,7 +72,12 @@ static NSString *ReuseId = @"CloudReuseId";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    IngredientCell *cell = [[IngredientCell alloc] initWithIngredient:[_ingredients objectAtIndex:indexPath.row] andQuantity:[_quantities objectAtIndex:indexPath.row]];
+    NSInteger row = indexPath.row;
+    
+    IngredientCell *cell = (IngredientCell *)[tableView dequeueReusableCellWithIdentifier:NSStringFromClass(IngredientCell.class) forIndexPath:indexPath];
+    
+    cell.ingredient.text = [_ingredients objectAtIndex:row];
+    cell.quantity.text = [_quantities objectAtIndex:row];
     
     return cell;
 }

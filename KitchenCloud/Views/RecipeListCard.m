@@ -10,21 +10,19 @@
 
 @implementation RecipeListCard
 
-
-- (instancetype)initWithFront:(RecipeFrontButton *)front andRear:(RecipeRearButton *)rear
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     if (self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass(RecipeListCard.class)])
     {
         self.backgroundColor = [UIColor clearColor];
         
-        _frontButton = front;
-
-        _rearButton = rear;
-        _rearButton.hidden = YES;
-        
+        _frontButton = [[RecipeFrontButton alloc] init];
         _frontButton.parentCell = self;
-        _rearButton.parentCell = self;
         
+        _rearButton = [[RecipeRearButton alloc] init];
+        _rearButton.hidden = YES;
+        _rearButton.parentCell = self;
+
         _frontButton.oppositeSideButton = _rearButton;
         _rearButton.oppositeSideButton = _frontButton;
         
@@ -35,16 +33,6 @@
     }
     
     return self;
-}
-
-- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
-    NSAttributedString *attrString = [[NSAttributedString alloc] initWithString:@"name"];
-    
-    RecipeFrontButton *frontButton = [[RecipeFrontButton alloc] initWithAttributedString:attrString];
-    RecipeRearButton *rearButton = [[RecipeRearButton alloc] initWithArray:@[@"none"] andArray:@[@"none"]];
-    
-    return [self initWithFront:frontButton andRear:rearButton];
 }
 
 - (void)updateConstraints

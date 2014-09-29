@@ -16,6 +16,4 @@
 @property (strong, nonatomic) RecipeFrontButton *frontButton;
 @property (strong, nonatomic) RecipeRearButton *rearButton;
 
-- (instancetype)initWithFront:(RecipeFrontButton *)front andRear:(RecipeRearButton *)rear;
-
 @end

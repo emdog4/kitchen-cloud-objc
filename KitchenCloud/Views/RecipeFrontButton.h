@@ -12,6 +12,5 @@
 @interface RecipeFrontButton : CloudFlipButton
 
 @property (strong, nonatomic) UILabel *recipeLabel;
-- (instancetype)initWithAttributedString:(NSAttributedString *)attributedString;
 
 @end

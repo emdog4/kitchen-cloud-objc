@@ -248,15 +248,16 @@ static NSString *ReuseableTableViewCellId = @"ReuseableTableViewCellId";
     
     NSAttributedString *atrString = [[NSAttributedString alloc] initWithString:[_datasource objectAtIndex:row] attributes:attrs];
     
+    RecipeListCard *cell = (RecipeListCard *)[tableView dequeueReusableCellWithIdentifier:NSStringFromClass(RecipeListCard.class) forIndexPath:indexPath];
     
-    RecipeFrontButton *_frontButton = [[RecipeFrontButton alloc] initWithAttributedString:atrString];
-    RecipeRearButton *_rearButton = [[RecipeRearButton alloc] initWithArray:_ingredients andArray:_quantities];
-
-    
-    RecipeListCard *cell = [[RecipeListCard alloc] initWithFront:_frontButton andRear:_rearButton];
-    
+    cell.frontButton.recipeLabel.attributedText = atrString;
+    cell.rearButton.ingredients = _ingredients;
+    cell.rearButton.quantities = _quantities;
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    [cell setNeedsUpdateConstraints];
+    [cell updateConstraintsIfNeeded];
     
     return cell;
 }
