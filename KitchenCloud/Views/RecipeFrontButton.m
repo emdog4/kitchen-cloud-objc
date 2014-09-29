@@ -52,7 +52,7 @@
 
 - (CGSize)intrinsicContentSize
 {
-    return CGSizeMake(UIViewNoIntrinsicMetric, _recipeLabel.frame.size.height);
+    return CGSizeMake(UIViewNoIntrinsicMetric, _recipeLabel.frame.size.height + 40.0);
 }
 
 @end
