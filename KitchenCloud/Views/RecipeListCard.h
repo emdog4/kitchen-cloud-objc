@@ -8,11 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+#import "RecipeFrontButton.h"
+#import "RecipeRearButton.h"
+
 @interface RecipeListCard : UITableViewCell
 
-@property (strong, nonatomic) UILabel *recipeLabel;
-@property (strong, nonatomic) UILabel *ingredientsLabel;
-@property (strong, nonatomic) UILabel *stepsLabel;
-@property (strong, nonatomic) UILabel *ingredientsHeader;
-@property (strong, nonatomic) UILabel *stepsHeader;
+@property (strong, nonatomic) RecipeFrontButton *frontButton;
+@property (strong, nonatomic) RecipeRearButton *rearButton;
+
+- (instancetype)initWithFront:(RecipeFrontButton *)front andRear:(RecipeRearButton *)rear;
+
 @end

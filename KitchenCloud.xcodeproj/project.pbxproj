@@ -10,6 +10,9 @@
 		D22AD91519D52E52006184CF /* KitchenCloudTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D22AD91419D52E52006184CF /* KitchenCloudTests.m */; };
 		D237C0C219D738A7004FE9F0 /* RecipeListCard.m in Sources */ = {isa = PBXBuildFile; fileRef = D237C0C119D738A7004FE9F0 /* RecipeListCard.m */; };
 		D237C0C719D77A9E004FE9F0 /* View.xib in Resources */ = {isa = PBXBuildFile; fileRef = D237C0C619D77A9E004FE9F0 /* View.xib */; };
+		D237C0CA19D90C0F004FE9F0 /* RecipeFrontButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D237C0C919D90C0F004FE9F0 /* RecipeFrontButton.m */; };
+		D237C0CD19D90C35004FE9F0 /* RecipeRearButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D237C0CC19D90C35004FE9F0 /* RecipeRearButton.m */; };
+		D237C0D019D90C4A004FE9F0 /* CloudFlipButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D237C0CF19D90C4A004FE9F0 /* CloudFlipButton.m */; };
 		D25AFCC919D5FE3300847B2B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D25AFC9019D5FE3300847B2B /* LaunchScreen.xib */; };
 		D25AFCCA19D5FE3300847B2B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D25AFC9319D5FE3300847B2B /* Images.xcassets */; };
 		D25AFCCB19D5FE3300847B2B /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D25AFC9419D5FE3300847B2B /* Info.plist */; };
@@ -57,6 +60,12 @@
 		D237C0C019D738A7004FE9F0 /* RecipeListCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecipeListCard.h; sourceTree = "<group>"; };
 		D237C0C119D738A7004FE9F0 /* RecipeListCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipeListCard.m; sourceTree = "<group>"; };
 		D237C0C619D77A9E004FE9F0 /* View.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = View.xib; sourceTree = "<group>"; };
+		D237C0C819D90C0F004FE9F0 /* RecipeFrontButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecipeFrontButton.h; sourceTree = "<group>"; };
+		D237C0C919D90C0F004FE9F0 /* RecipeFrontButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipeFrontButton.m; sourceTree = "<group>"; };
+		D237C0CB19D90C35004FE9F0 /* RecipeRearButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecipeRearButton.h; sourceTree = "<group>"; };
+		D237C0CC19D90C35004FE9F0 /* RecipeRearButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipeRearButton.m; sourceTree = "<group>"; };
+		D237C0CE19D90C4A004FE9F0 /* CloudFlipButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudFlipButton.h; sourceTree = "<group>"; };
+		D237C0CF19D90C4A004FE9F0 /* CloudFlipButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudFlipButton.m; sourceTree = "<group>"; };
 		D25AFC9119D5FE3300847B2B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		D25AFC9319D5FE3300847B2B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		D25AFC9419D5FE3300847B2B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Info.plist; sourceTree = "<group>"; };
@@ -280,6 +289,12 @@
 				D237C0C019D738A7004FE9F0 /* RecipeListCard.h */,
 				D237C0C119D738A7004FE9F0 /* RecipeListCard.m */,
 				D237C0C319D75C74004FE9F0 /* Cells */,
+				D237C0C819D90C0F004FE9F0 /* RecipeFrontButton.h */,
+				D237C0C919D90C0F004FE9F0 /* RecipeFrontButton.m */,
+				D237C0CB19D90C35004FE9F0 /* RecipeRearButton.h */,
+				D237C0CC19D90C35004FE9F0 /* RecipeRearButton.m */,
+				D237C0CE19D90C4A004FE9F0 /* CloudFlipButton.h */,
+				D237C0CF19D90C4A004FE9F0 /* CloudFlipButton.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -393,11 +408,14 @@
 				D237C0C219D738A7004FE9F0 /* RecipeListCard.m in Sources */,
 				D25AFCDF19D5FE3300847B2B /* RecipeCardTextView.m in Sources */,
 				D25AFCD119D5FE3300847B2B /* Step.m in Sources */,
+				D237C0D019D90C4A004FE9F0 /* CloudFlipButton.m in Sources */,
 				D25AFCD019D5FE3300847B2B /* Recipe.m in Sources */,
 				D25AFCE119D5FE3300847B2B /* RecipeIngredientTableViewCell.m in Sources */,
+				D237C0CD19D90C35004FE9F0 /* RecipeRearButton.m in Sources */,
 				D25AFCD219D5FE3300847B2B /* Tag.m in Sources */,
 				D25AFCD919D5FE3300847B2B /* RecipeDetailViewController.m in Sources */,
 				D25AFCCE19D5FE3300847B2B /* Ingredient.m in Sources */,
+				D237C0CA19D90C0F004FE9F0 /* RecipeFrontButton.m in Sources */,
 				D25AFCE319D5FE3300847B2B /* RecipeStepTableViewCell.m in Sources */,
 				D25AFCD819D5FE3300847B2B /* IngredientNutritionInfoViewController.m in Sources */,
 				D25AFCE019D5FE3300847B2B /* RecipeDetailsTableViewHeaderView.m in Sources */,

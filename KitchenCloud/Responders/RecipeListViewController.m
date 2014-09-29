@@ -28,6 +28,8 @@
     NSArray *_dataAllRecipes;
     NSArray *_dataSearchedRecipes;
     NSArray *_ingredients;
+    NSArray *_quantities;
+
     NSArray *_steps;
     
     NSManagedObjectContext *_context;
@@ -50,13 +52,24 @@ static NSString *ReuseableTableViewCellId = @"ReuseableTableViewCellId";
     {
         self.title = NSLocalizedString(@"All Recipes", @"All Recipes");
         
-        _ingredients = @[@"1 lb spaghetti",
-                         @"1/2 cup earth balance",
-                         @"10 cloves garlic minced",
-                         @"8oz spinach",
-                         @"1 cup chopped kalamata olives",
-                         @"1 cup chopped dry sun-dried tomatoes",
-                         @"salt and pepper to taste"];
+//        _ingredients = @[@"1 lb spaghetti",
+//                         @"1/2 cup earth balance",
+//                         @"10 cloves garlic minced",
+//                         @"8oz spinach",
+//                         @"1 cup chopped kalamata olives",
+//                         @"1 cup chopped dry sun-dried tomatoes",
+//                         @"salt and pepper to taste"];
+
+        _ingredients = @[@"spaghetti",
+                         @"earth balance",
+                         @"garlic minced",
+                         @"spinach",
+                         @"chopped kalamata olives",
+                         @"chopped dry sun-dried tomatoes",
+                         @"salt and pepper"];
+        
+        _quantities = @[@"1 lb", [NSString stringWithFormat:@"%C cup",0x00BD], @"10 cloves", @"8oz", @"1 cup", @"1 cup", @"to taste"];
+        
         
         _steps = @[@"cook pasta according to package directions",
                    @"add butter large non stick skillet med low",
@@ -203,8 +216,6 @@ static NSString *ReuseableTableViewCellId = @"ReuseableTableViewCellId";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    RecipeListCard *cell = (RecipeListCard *)[tableView dequeueReusableCellWithIdentifier:NSStringFromClass(RecipeListCard.class) forIndexPath:indexPath];
-    
     NSInteger row = indexPath.row;
     
     // Choose the correct datasource
@@ -219,10 +230,12 @@ static NSString *ReuseableTableViewCellId = @"ReuseableTableViewCellId";
     NSMutableParagraphStyle *paragraphstyle = [[NSMutableParagraphStyle alloc] init];
     paragraphstyle.alignment = NSTextAlignmentJustified;
     paragraphstyle.lineBreakMode = NSLineBreakByWordWrapping;
+    
     NSShadow *drop = [[NSShadow alloc] init];
     drop.shadowOffset = CGSizeMake(0, 1);
     drop.shadowBlurRadius = 2;
     drop.shadowColor = [UIColor blackColor];
+    
     UIColor *textforeground = [UIColor colorWithRed:0.37 green:0.75 blue:0.99 alpha:1];
     UIColor *stroke = [UIColor whiteColor];
     NSNumber *strokewidth = [NSNumber numberWithFloat:-3.0];
@@ -235,35 +248,13 @@ static NSString *ReuseableTableViewCellId = @"ReuseableTableViewCellId";
     
     NSAttributedString *atrString = [[NSAttributedString alloc] initWithString:[_datasource objectAtIndex:row] attributes:attrs];
     
-    cell.recipeLabel.attributedText = atrString;
     
-    cell.ingredientsLabel.text = [_ingredients componentsJoinedByString:@"\n"];
-    cell.stepsLabel.text = [_steps componentsJoinedByString:@"\n"];;
+    RecipeFrontButton *_frontButton = [[RecipeFrontButton alloc] initWithAttributedString:atrString];
+    RecipeRearButton *_rearButton = [[RecipeRearButton alloc] initWithArray:_ingredients andArray:_quantities];
+
     
+    RecipeListCard *cell = [[RecipeListCard alloc] initWithFront:_frontButton andRear:_rearButton];
     
-    UIFont *headerFont = [UIFont fontWithName:@"HelveticaNeue" size:18.0];
-    
-    NSMutableParagraphStyle *headerParagraphstyle = [[NSMutableParagraphStyle alloc] init];
-    headerParagraphstyle.alignment = NSTextAlignmentLeft;
-    NSShadow *headerDrop = [[NSShadow alloc] init];
-    headerDrop.shadowOffset = CGSizeMake(0, 1);
-    headerDrop.shadowBlurRadius = 2;
-    headerDrop.shadowColor = [UIColor blackColor];
-    UIColor *headerForeground = [UIColor colorWithRed:0.37 green:0.75 blue:0.99 alpha:1];
-    UIColor *headerStroke = [UIColor whiteColor];
-    NSNumber *headerStrokeWidth = [NSNumber numberWithFloat:-3.0];
-    NSNumber *headerKerning = [NSNumber numberWithInt:2];
-    
-    NSArray *headerObjects = @[headerFont, headerParagraphstyle, headerDrop, headerForeground, headerStroke, headerStrokeWidth, headerKerning];
-    NSArray *headerKeys = @[NSFontAttributeName, NSParagraphStyleAttributeName, NSShadowAttributeName, NSForegroundColorAttributeName, NSStrokeColorAttributeName, NSStrokeWidthAttributeName, NSKernAttributeName];
-    
-    NSDictionary *headerAttrs = [[NSDictionary alloc] initWithObjects:headerObjects forKeys:headerKeys];
-    
-    NSAttributedString *ingredientsHeaderAtrString = [[NSAttributedString alloc] initWithString:@"Ingredients" attributes:headerAttrs];
-    NSAttributedString *stepsHeaderAtrString = [[NSAttributedString alloc] initWithString:@"Recipe" attributes:headerAttrs];
-    
-    cell.ingredientsHeader.attributedText = ingredientsHeaderAtrString;
-    cell.stepsHeader.attributedText = stepsHeaderAtrString;
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
