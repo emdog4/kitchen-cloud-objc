@@ -35,7 +35,6 @@
 		D25AFCDF19D5FE3300847B2B /* RecipeCardTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = D25AFCC019D5FE3300847B2B /* RecipeCardTextView.m */; };
 		D25AFCE019D5FE3300847B2B /* RecipeDetailsTableViewHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = D25AFCC219D5FE3300847B2B /* RecipeDetailsTableViewHeaderView.m */; };
 		D25AFCE119D5FE3300847B2B /* RecipeIngredientTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D25AFCC419D5FE3300847B2B /* RecipeIngredientTableViewCell.m */; };
-		D25AFCE219D5FE3300847B2B /* RecipeListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D25AFCC619D5FE3300847B2B /* RecipeListTableViewCell.m */; };
 		D25AFCE319D5FE3300847B2B /* RecipeStepTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D25AFCC819D5FE3300847B2B /* RecipeStepTableViewCell.m */; };
 		D25AFCE619D6009F00847B2B /* TextFieldTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D25AFCE519D6009F00847B2B /* TextFieldTableViewCell.m */; };
 /* End PBXBuildFile section */
@@ -103,8 +102,6 @@
 		D25AFCC219D5FE3300847B2B /* RecipeDetailsTableViewHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipeDetailsTableViewHeaderView.m; sourceTree = "<group>"; };
 		D25AFCC319D5FE3300847B2B /* RecipeIngredientTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecipeIngredientTableViewCell.h; sourceTree = "<group>"; };
 		D25AFCC419D5FE3300847B2B /* RecipeIngredientTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipeIngredientTableViewCell.m; sourceTree = "<group>"; };
-		D25AFCC519D5FE3300847B2B /* RecipeListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecipeListTableViewCell.h; sourceTree = "<group>"; };
-		D25AFCC619D5FE3300847B2B /* RecipeListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipeListTableViewCell.m; sourceTree = "<group>"; };
 		D25AFCC719D5FE3300847B2B /* RecipeStepTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecipeStepTableViewCell.h; sourceTree = "<group>"; };
 		D25AFCC819D5FE3300847B2B /* RecipeStepTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipeStepTableViewCell.m; sourceTree = "<group>"; };
 		D25AFCE419D6009F00847B2B /* TextFieldTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextFieldTableViewCell.h; sourceTree = "<group>"; };
@@ -282,8 +279,6 @@
 			children = (
 				D237C0C019D738A7004FE9F0 /* RecipeListCard.h */,
 				D237C0C119D738A7004FE9F0 /* RecipeListCard.m */,
-				D25AFCC519D5FE3300847B2B /* RecipeListTableViewCell.h */,
-				D25AFCC619D5FE3300847B2B /* RecipeListTableViewCell.m */,
 				D237C0C319D75C74004FE9F0 /* Cells */,
 			);
 			path = Views;
@@ -396,7 +391,6 @@
 				D25AFCDB19D5FE3300847B2B /* RecipeTextViewController.m in Sources */,
 				D25AFCD419D5FE3300847B2B /* RecipeSplitViewControllerDelegate.m in Sources */,
 				D237C0C219D738A7004FE9F0 /* RecipeListCard.m in Sources */,
-				D25AFCE219D5FE3300847B2B /* RecipeListTableViewCell.m in Sources */,
 				D25AFCDF19D5FE3300847B2B /* RecipeCardTextView.m in Sources */,
 				D25AFCD119D5FE3300847B2B /* Step.m in Sources */,
 				D25AFCD019D5FE3300847B2B /* Recipe.m in Sources */,

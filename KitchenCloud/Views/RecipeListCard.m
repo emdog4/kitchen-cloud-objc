@@ -14,6 +14,7 @@
     UIButton *_mainButton;
     UIButton *_backButton;
     NSArray *_ingredients;
+    NSArray *_steps;
     UIColor *_pattern;
 }
 
@@ -56,13 +57,27 @@
         
         [_backButton addTarget:self action:@selector(touchDown:) forControlEvents:UIControlEventTouchDown];
         [_backButton addTarget:self action:@selector(touchUp:) forControlEvents:UIControlEventTouchUpInside];
-        //[_backButton addTarget:self action:@selector(touchUp:) forControlEvents:UIControlEventTouchUpOutside];
+        [_backButton addTarget:self action:@selector(touchUp:) forControlEvents:UIControlEventTouchUpOutside];
         
         [_backButton setBackgroundColor:_pattern];
+        
+        UIFont *labelFont = [UIFont systemFontOfSize:12.0];
         
         _ingredientsLabel = [[UILabel alloc] init];
         _ingredientsLabel.translatesAutoresizingMaskIntoConstraints = NO;
         _ingredientsLabel.numberOfLines = 0;
+        _ingredientsLabel.font = labelFont;
+        
+        _stepsLabel = [[UILabel alloc] init];
+        _stepsLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        _stepsLabel.numberOfLines = 0;
+        _stepsLabel.font = labelFont;
+        
+        _ingredientsHeader = [[UILabel alloc] init];
+        _ingredientsHeader.translatesAutoresizingMaskIntoConstraints = NO;
+        
+        _stepsHeader = [[UILabel alloc] init];
+        _stepsHeader.translatesAutoresizingMaskIntoConstraints = NO;
         
         _backButton.hidden = YES;
 
@@ -88,22 +103,27 @@
     _constraints = [NSMutableArray array];
     
     [_constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(20)-[_recipeLabel]-(20)-|" options:0 metrics:nil views:_bindings]];
-    
     [_constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(20)-[_recipeLabel]-(20)-|" options:0 metrics:nil views:_bindings]];
     
     [_mainButton addConstraints:_constraints];
     
     /// Back Label
     
-    _bindings = NSDictionaryOfVariableBindings(_ingredientsLabel);
+    _bindings = NSDictionaryOfVariableBindings(_ingredientsLabel, _ingredientsHeader, _stepsLabel, _stepsHeader);
     
     [_backButton addSubview:_ingredientsLabel];
+    [_backButton addSubview:_ingredientsHeader];
+    [_backButton addSubview:_stepsLabel];
+    [_backButton addSubview:_stepsHeader];
     
     _constraints = [NSMutableArray array];
     
-    [_constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(20)-[_ingredientsLabel]-(20)-|" options:0 metrics:nil views:_bindings]];
-    
-    [_constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(20)-[_ingredientsLabel]-(20)-|" options:0 metrics:nil views:_bindings]];
+    [_constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(10@50)-[_ingredientsHeader]-[_ingredientsLabel]" options:0 metrics:nil views:_bindings]];
+    [_constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(10@50)-[_stepsHeader]-[_stepsLabel]" options:0 metrics:nil views:_bindings]];
+    [_constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_ingredientsHeader]-[_stepsHeader]-|" options:0 metrics:nil views:_bindings]];
+    [_constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_ingredientsLabel]-[_stepsLabel]-|" options:0 metrics:nil views:_bindings]];
+    [_constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"[_ingredientsHeader(==_stepsHeader)]" options:0 metrics:nil views:_bindings]];
+    [_constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"[_ingredientsLabel(==_stepsLabel)]" options:0 metrics:nil views:_bindings]];
     
     [_backButton addConstraints:_constraints];
     

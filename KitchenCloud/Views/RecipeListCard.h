@@ -12,6 +12,7 @@
 
 @property (strong, nonatomic) UILabel *recipeLabel;
 @property (strong, nonatomic) UILabel *ingredientsLabel;
-
-
+@property (strong, nonatomic) UILabel *stepsLabel;
+@property (strong, nonatomic) UILabel *ingredientsHeader;
+@property (strong, nonatomic) UILabel *stepsHeader;
 @end

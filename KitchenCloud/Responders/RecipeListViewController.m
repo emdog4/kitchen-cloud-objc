@@ -13,7 +13,6 @@
 
 #import "RecipeListCard.h"
 
-#import "RecipeListTableViewCell.h"
 #import "RecipeTextViewController.h"
 
 #import "Models.h"
@@ -29,6 +28,7 @@
     NSArray *_dataAllRecipes;
     NSArray *_dataSearchedRecipes;
     NSArray *_ingredients;
+    NSArray *_steps;
     
     NSManagedObjectContext *_context;
     
@@ -57,6 +57,14 @@ static NSString *ReuseableTableViewCellId = @"ReuseableTableViewCellId";
                          @"1 cup chopped kalamata olives",
                          @"1 cup chopped dry sun-dried tomatoes",
                          @"salt and pepper to taste"];
+        
+        _steps = @[@"cook pasta according to package directions",
+                   @"add butter large non stick skillet med low",
+                   @"add garlic and saute",
+                   @"add spinach cook til wilted",
+                   @"toss in pasta",
+                   @"add olives and sun-dried tomatoes"];
+        
         /// View
         self.view = [[UIView alloc] init];
         self.edgesForExtendedLayout = UIRectEdgeTop;
@@ -205,7 +213,6 @@ static NSString *ReuseableTableViewCellId = @"ReuseableTableViewCellId";
     
     
     //UIFontDescriptor *descriptor = [UIFontDescriptor fontDescriptorWithName:@"Georgia-BoldItalic" size:30.0];
-    //CGFloat size = [UIFont pre]
     
     UIFont *font = [UIFont fontWithName:@"HelveticaNeue" size:26.0];
     
@@ -229,8 +236,35 @@ static NSString *ReuseableTableViewCellId = @"ReuseableTableViewCellId";
     NSAttributedString *atrString = [[NSAttributedString alloc] initWithString:[_datasource objectAtIndex:row] attributes:attrs];
     
     cell.recipeLabel.attributedText = atrString;
-    cell.ingredientsLabel.text = [_ingredients componentsJoinedByString:@", "];
-
+    
+    cell.ingredientsLabel.text = [_ingredients componentsJoinedByString:@"\n"];
+    cell.stepsLabel.text = [_steps componentsJoinedByString:@"\n"];;
+    
+    
+    UIFont *headerFont = [UIFont fontWithName:@"HelveticaNeue" size:18.0];
+    
+    NSMutableParagraphStyle *headerParagraphstyle = [[NSMutableParagraphStyle alloc] init];
+    headerParagraphstyle.alignment = NSTextAlignmentLeft;
+    NSShadow *headerDrop = [[NSShadow alloc] init];
+    headerDrop.shadowOffset = CGSizeMake(0, 1);
+    headerDrop.shadowBlurRadius = 2;
+    headerDrop.shadowColor = [UIColor blackColor];
+    UIColor *headerForeground = [UIColor colorWithRed:0.37 green:0.75 blue:0.99 alpha:1];
+    UIColor *headerStroke = [UIColor whiteColor];
+    NSNumber *headerStrokeWidth = [NSNumber numberWithFloat:-3.0];
+    NSNumber *headerKerning = [NSNumber numberWithInt:2];
+    
+    NSArray *headerObjects = @[headerFont, headerParagraphstyle, headerDrop, headerForeground, headerStroke, headerStrokeWidth, headerKerning];
+    NSArray *headerKeys = @[NSFontAttributeName, NSParagraphStyleAttributeName, NSShadowAttributeName, NSForegroundColorAttributeName, NSStrokeColorAttributeName, NSStrokeWidthAttributeName, NSKernAttributeName];
+    
+    NSDictionary *headerAttrs = [[NSDictionary alloc] initWithObjects:headerObjects forKeys:headerKeys];
+    
+    NSAttributedString *ingredientsHeaderAtrString = [[NSAttributedString alloc] initWithString:@"Ingredients" attributes:headerAttrs];
+    NSAttributedString *stepsHeaderAtrString = [[NSAttributedString alloc] initWithString:@"Recipe" attributes:headerAttrs];
+    
+    cell.ingredientsHeader.attributedText = ingredientsHeaderAtrString;
+    cell.stepsHeader.attributedText = stepsHeaderAtrString;
+    
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
