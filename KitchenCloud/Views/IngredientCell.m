@@ -53,9 +53,4 @@
     [super updateConstraints];
 }
 
-- (CGSize)intrinsicContentSize
-{
-    return CGSizeMake(UIViewNoIntrinsicMetric, _ingredient.frame.size.height);
-}
-
 @end

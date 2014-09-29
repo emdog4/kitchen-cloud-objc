@@ -52,11 +52,6 @@
     [super updateConstraints];
 }
 
-- (CGSize)intrinsicContentSize
-{
-    return [self.oppositeSideButton intrinsicContentSize];
-}
-
 #pragma mark - Table View Datasource
 #pragma mark
 

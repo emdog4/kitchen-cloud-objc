@@ -26,9 +26,6 @@
         _frontButton.oppositeSideButton = _rearButton;
         _rearButton.oppositeSideButton = _frontButton;
         
-        [self setNeedsUpdateConstraints];
-        [self updateConstraintsIfNeeded];
-        
         self.contentView.layoutMargins = UIEdgeInsetsMake(10, 25, 10, 25);
     }
     
@@ -57,11 +54,6 @@
     [self.contentView addConstraints:_constraints];
     
     [super updateConstraints];
-}
-
-- (CGSize)intrinsicContentSize
-{
-    return [_frontButton intrinsicContentSize];
 }
 
 @end

@@ -39,17 +39,12 @@
     
     _constraints = [NSMutableArray array];
     
-    [_constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(20)-[_recipeLabel]-(20)-|" options:0 metrics:nil views:_bindings]];
+    [_constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(20@999)-[_recipeLabel]-(20@999)-|" options:0 metrics:nil views:_bindings]];
     [_constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(20)-[_recipeLabel]-(20)-|" options:0 metrics:nil views:_bindings]];
     
     [self addConstraints:_constraints];
     
     [super updateConstraints];
-}
-
-- (CGSize)intrinsicContentSize
-{
-    return CGSizeMake(UIViewNoIntrinsicMetric, _recipeLabel.frame.size.height + 40.0);
 }
 
 @end
