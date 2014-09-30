@@ -20,9 +20,6 @@
         _recipeLabel = [[UILabel alloc] init];
         _recipeLabel.translatesAutoresizingMaskIntoConstraints = NO;
         _recipeLabel.numberOfLines = 0;
-        
-        [self setNeedsUpdateConstraints];
-        [self updateConstraintsIfNeeded];
     }
     
     return self;
@@ -39,7 +36,7 @@
     
     _constraints = [NSMutableArray array];
     
-    [_constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(20@999)-[_recipeLabel]-(20@999)-|" options:0 metrics:nil views:_bindings]];
+    [_constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(20@975)-[_recipeLabel]-(20@975)-|" options:0 metrics:nil views:_bindings]];
     [_constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(20)-[_recipeLabel]-(20)-|" options:0 metrics:nil views:_bindings]];
     
     [self addConstraints:_constraints];

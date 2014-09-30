@@ -168,6 +168,21 @@ static NSString *ReuseableTableViewCellId = @"ReuseableTableViewCellId";
     [self refreshDatasource];
 }
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(didChangePreferredContentSize:)
+                                                 name:UIContentSizeCategoryDidChangeNotification
+                                               object:nil];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)refreshDatasource
 {
     if (!_context)
@@ -225,36 +240,52 @@ static NSString *ReuseableTableViewCellId = @"ReuseableTableViewCellId";
     
     //UIFontDescriptor *descriptor = [UIFontDescriptor fontDescriptorWithName:@"Georgia-BoldItalic" size:30.0];
     
-    UIFont *font = [UIFont fontWithName:@"HelveticaNeue" size:26.0];
+    UIFontDescriptor *preferredFont = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleHeadline];
+    CGFloat pointSize = [preferredFont pointSize];
+    UIFont *font = [UIFont fontWithDescriptor:preferredFont size:pointSize+6.0];
     
-    NSMutableParagraphStyle *paragraphstyle = [[NSMutableParagraphStyle alloc] init];
-    paragraphstyle.alignment = NSTextAlignmentJustified;
-    paragraphstyle.lineBreakMode = NSLineBreakByWordWrapping;
-    
-    NSShadow *drop = [[NSShadow alloc] init];
-    drop.shadowOffset = CGSizeMake(0, 1);
-    drop.shadowBlurRadius = 2;
-    drop.shadowColor = [UIColor blackColor];
-    
-    UIColor *textforeground = [UIColor colorWithRed:0.37 green:0.75 blue:0.99 alpha:1];
-    UIColor *stroke = [UIColor whiteColor];
-    NSNumber *strokewidth = [NSNumber numberWithFloat:-3.0];
-    NSNumber *kerning = [NSNumber numberWithInt:5];
-    
-    NSArray *objects = @[font, paragraphstyle, drop, textforeground, stroke, strokewidth, kerning];
-    NSArray *keys = @[NSFontAttributeName, NSParagraphStyleAttributeName, NSShadowAttributeName, NSForegroundColorAttributeName, NSStrokeColorAttributeName, NSStrokeWidthAttributeName, NSKernAttributeName];
-    
-    NSDictionary *attrs = [[NSDictionary alloc] initWithObjects:objects forKeys:keys];
-    
-    NSAttributedString *atrString = [[NSAttributedString alloc] initWithString:[_datasource objectAtIndex:row] attributes:attrs];
+//    UIFont *font = [UIFont fontWithName:@"HelveticaNeue" size:26.0];
+//    
+//    NSMutableParagraphStyle *paragraphstyle = [[NSMutableParagraphStyle alloc] init];
+//    paragraphstyle.alignment = NSTextAlignmentJustified;
+//    paragraphstyle.lineBreakMode = NSLineBreakByWordWrapping;
+//    
+//    NSShadow *drop = [[NSShadow alloc] init];
+//    drop.shadowOffset = CGSizeMake(0, 1);
+//    drop.shadowBlurRadius = 2;
+//    drop.shadowColor = [UIColor blackColor];
+//    
+//    UIColor *textforeground = [UIColor colorWithRed:0.37 green:0.75 blue:0.99 alpha:1];
+//    UIColor *stroke = [UIColor whiteColor];
+//    NSNumber *strokewidth = [NSNumber numberWithFloat:-3.0];
+//    NSNumber *kerning = [NSNumber numberWithInt:5];
+//    
+//    NSArray *objects = @[font, paragraphstyle, drop, textforeground, stroke, strokewidth, kerning];
+//    NSArray *keys = @[NSFontAttributeName, NSParagraphStyleAttributeName, NSShadowAttributeName, NSForegroundColorAttributeName, NSStrokeColorAttributeName, NSStrokeWidthAttributeName, NSKernAttributeName];
+//    
+//    NSDictionary *attrs = [[NSDictionary alloc] initWithObjects:objects forKeys:keys];
+//    
+//    NSAttributedString *atrString = [[NSAttributedString alloc] initWithString:[_datasource objectAtIndex:row] attributes:attrs];
     
     RecipeListCard *cell = (RecipeListCard *)[tableView dequeueReusableCellWithIdentifier:NSStringFromClass(RecipeListCard.class) forIndexPath:indexPath];
     
-    cell.frontButton.recipeLabel.attributedText = atrString;
+    cell.parentTableView = tableView;
+    
+    cell.frontButton.recipeLabel.text = [_datasource objectAtIndex:row];
+    cell.frontButton.recipeLabel.font = font;
+    cell.frontButton.recipeLabel.textAlignment = NSTextAlignmentJustified;
+    
     cell.rearButton.ingredients = _ingredients;
     cell.rearButton.quantities = _quantities;
     
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    [cell.rearButton.ingredientsTableView reloadData];
+    [cell.rearButton.ingredientsTableView sizeToFit];
+    
+    [cell.rearButton setNeedsUpdateConstraints];
+    [cell.rearButton updateConstraintsIfNeeded];
+    
+    [cell.frontButton setNeedsUpdateConstraints];
+    [cell.frontButton updateConstraintsIfNeeded];
     
     [cell setNeedsUpdateConstraints];
     [cell updateConstraintsIfNeeded];
@@ -301,6 +332,12 @@ static NSString *ReuseableTableViewCellId = @"ReuseableTableViewCellId";
 
 #pragma mark - Private methods
 #pragma mark
+
+- (void)setupDynamicType
+{
+
+    
+}
 
 - (void)search:(UIBarButtonItem *)sender
 {

@@ -10,6 +10,7 @@
 
 #import "RecipeFrontButton.h"
 #import "RecipeRearButton.h"
+#import "RecipeListCard.h"
 
 @interface CloudFlipButton ()
 {
@@ -50,40 +51,66 @@
 
 - (void)touchUp:(CloudFlipButton *)sender
 {
-    [UIView animateWithDuration:0.5
-                          delay:0.0
-         usingSpringWithDamping:0.8
-          initialSpringVelocity:1.0
-                        options:UIViewAnimationOptionCurveLinear
-                     animations:^{
-                         
-                         sender.layer.transform = CATransform3DIdentity;
-                         
-                         UIViewAnimationOptions option = UIViewAnimationOptionTransitionNone;
-                         UIButton *destination = _oppositeSideButton;
-                         
-                         if ([sender isKindOfClass:RecipeFrontButton.class])
-                         {
-                             option = UIViewAnimationOptionTransitionFlipFromRight;
+    if ([sender isKindOfClass:RecipeRearButton.class])
+    {
+        
+        
+        NSArray *constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[sender(==400)]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(sender)];
+        
+        [sender.parentCell.contentView addConstraints:constraints];
+        
+        [UIView animateWithDuration:0.5
+                         animations:^{
+            
+                            [sender.parentCell.contentView setNeedsUpdateConstraints];
+                            
+                            [sender.parentCell.contentView updateConstraintsIfNeeded];
+                            
+                            [((RecipeListCard *)sender.parentCell).parentTableView reloadData];
+            
                          }
-                         else if ([sender isKindOfClass:RecipeRearButton.class])
-                         {
-                             option = UIViewAnimationOptionTransitionFlipFromLeft;
-                         }
-                         
-                         if (sender && destination)
-                         {
-                             destination.hidden = NO;
+                         completion:nil];
+        
+
+        
+    }
+    else if ([sender isKindOfClass:RecipeFrontButton.class])
+    {
+        [UIView animateWithDuration:0.5
+                              delay:0.0
+             usingSpringWithDamping:0.8
+              initialSpringVelocity:1.0
+                            options:UIViewAnimationOptionCurveLinear
+                         animations:^{
                              
-                             [UIView transitionFromView:sender toView:destination duration:0.5 options:option completion:^(BOOL finished) {
-                                 [self.parentCell setNeedsUpdateConstraints];
-                                 sender.hidden = YES;
-                             }];
+                             sender.layer.transform = CATransform3DIdentity;
+                             
+                             UIViewAnimationOptions option = UIViewAnimationOptionTransitionNone;
+                             UIButton *destination = _oppositeSideButton;
+                             
+                             if ([sender isKindOfClass:RecipeFrontButton.class])
+                             {
+                                 option = UIViewAnimationOptionTransitionFlipFromRight;
+                             }
+                             else if ([sender isKindOfClass:RecipeRearButton.class])
+                             {
+                                 option = UIViewAnimationOptionTransitionFlipFromLeft;
+                             }
+                             
+                             if (sender && destination)
+                             {
+                                 destination.hidden = NO;
+                                 
+                                 [UIView transitionFromView:sender toView:destination duration:0.5 options:option completion:^(BOOL finished) {
+                                     [self.parentCell setNeedsUpdateConstraints];
+                                     sender.hidden = YES;
+                                 }];
+                             }
+                             
                          }
-                         
-                     }
-                     completion:nil
-     ];
+                         completion:nil
+         ];
+    }
 }
 
 @end

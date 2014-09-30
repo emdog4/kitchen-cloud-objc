@@ -16,4 +16,7 @@
 @property (strong, nonatomic) RecipeFrontButton *frontButton;
 @property (strong, nonatomic) RecipeRearButton *rearButton;
 
+@property (strong, nonatomic) UITableView *parentTableView;
+
+
 @end

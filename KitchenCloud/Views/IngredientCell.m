@@ -19,17 +19,27 @@
         
         _ingredient = [[UILabel alloc] init];
         _ingredient.translatesAutoresizingMaskIntoConstraints = NO;
-        _ingredient.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
         
         _quantity = [[UILabel alloc] init];
         _quantity.translatesAutoresizingMaskIntoConstraints = NO;
-        _quantity.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+        
+        [self setupDynamicType];
         
         [self.contentView setNeedsUpdateConstraints];
         [self.contentView updateConstraintsIfNeeded];
     }
     
     return self;
+}
+
+- (void)setupDynamicType
+{
+    UIFontDescriptor *preferredFont = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleBody];
+    CGFloat pointSize = [preferredFont pointSize];
+    UIFont *newFont = [UIFont fontWithDescriptor:preferredFont size:pointSize-3.0];
+    
+    _ingredient.font = newFont;
+    _quantity.font = newFont;
 }
 
 - (void)updateConstraints
@@ -44,8 +54,8 @@
     
     _constraints = [NSMutableArray array];
     
-    [_constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[_ingredient]-|" options:0 metrics:nil views:_bindings]];
-    [_constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[_quantity]-|" options:0 metrics:nil views:_bindings]];
+    [_constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_ingredient]|" options:0 metrics:nil views:_bindings]];
+    [_constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_quantity]|" options:0 metrics:nil views:_bindings]];
     [_constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_ingredient]-[_quantity]-|" options:0 metrics:nil views:_bindings]];
     
     [self.contentView addConstraints:_constraints];

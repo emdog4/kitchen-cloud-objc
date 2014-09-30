@@ -22,15 +22,14 @@
         _ingredientsTableView.translatesAutoresizingMaskIntoConstraints = NO;
         _ingredientsTableView.delegate = self;
         _ingredientsTableView.dataSource = self;
-        _ingredientsTableView.estimatedRowHeight = 30;
+        _ingredientsTableView.estimatedRowHeight = 20;
         _ingredientsTableView.rowHeight = UITableViewAutomaticDimension;
         _ingredientsTableView.backgroundColor = [UIColor clearColor];
         _ingredientsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         
-        [_ingredientsTableView registerClass:IngredientCell.class forCellReuseIdentifier:NSStringFromClass(IngredientCell.class)];
+        _ingredientsTableView.bounces = NO;
         
-        [self setNeedsUpdateConstraints];
-        [self updateConstraintsIfNeeded];
+        [_ingredientsTableView registerClass:IngredientCell.class forCellReuseIdentifier:NSStringFromClass(IngredientCell.class)];
     }
     
     return self;
@@ -38,16 +37,24 @@
 
 - (void)updateConstraints
 {
+    CGSize contentSize = _ingredientsTableView.contentSize;
+    
     NSDictionary *_bindings = NSDictionaryOfVariableBindings(_ingredientsTableView);
     NSMutableArray *_constraints = [NSMutableArray array];
     
     [self addSubview:_ingredientsTableView];
     
-    [_constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[_ingredientsTableView]-|" options:0 metrics:nil views:_bindings]];
+    [_constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_ingredientsTableView(==height)]" options:0 metrics:@{@"height":[NSNumber numberWithFloat:contentSize.height]} views:_bindings]];
+    
+    [_constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(22@999)-[_ingredientsTableView]-(22@999)-|" options:0 metrics:nil views:_bindings]];
     
     [_constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(20)-[_ingredientsTableView]-(20)-|" options:0 metrics:nil views:_bindings]];
     
     [self addConstraints:_constraints];
+    
+    CGFloat offset = (self.bounds.size.height - _ingredientsTableView.bounds.size.height) / 2;
+    
+    [_ingredientsTableView setContentOffset:CGPointMake(0, offset)];
     
     [super updateConstraints];
 }

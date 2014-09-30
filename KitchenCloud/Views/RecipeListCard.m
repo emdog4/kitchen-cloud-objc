@@ -15,6 +15,7 @@
     if (self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass(RecipeListCard.class)])
     {
         self.backgroundColor = [UIColor clearColor];
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
         
         _frontButton = [[RecipeFrontButton alloc] init];
         _frontButton.parentCell = self;
