@@ -25,8 +25,16 @@
     if (self = [super init])
     {
         _recipes = @[@"garlic butter spaghetti with spinach, sun-dried tomatoes and olives",
-                            @"creamy pesto pasta with vegan alfredo sauce and vegan banana and strawberry ice cream for desert",
-                            @"spicy thai noodles",@"dinner for breakfast"];
+                     @"creamy pesto pasta with vegan alfredo sauce and vegan banana and strawberry ice cream for desert",
+                     @"spicy thai noodles",@"dinner for breakfast", @"garlic butter spaghetti with spinach, sun-dried tomatoes and olives",
+                     @"creamy pesto pasta with vegan alfredo sauce and vegan banana and strawberry ice cream for desert",
+                     @"spicy thai noodles",@"dinner for breakfast", @"garlic butter spaghetti with spinach, sun-dried tomatoes and olives",
+                     @"creamy pesto pasta with vegan alfredo sauce and vegan banana and strawberry ice cream for desert",
+                     @"spicy thai noodles",@"dinner for breakfast", @"garlic butter spaghetti with spinach, sun-dried tomatoes and olives",
+                     @"creamy pesto pasta with vegan alfredo sauce and vegan banana and strawberry ice cream for desert",
+                     @"spicy thai noodles",@"dinner for breakfast", @"garlic butter spaghetti with spinach, sun-dried tomatoes and olives",
+                     @"creamy pesto pasta with vegan alfredo sauce and vegan banana and strawberry ice cream for desert",
+                     @"spicy thai noodles",@"dinner for breakfast"];
     }
     return self;
 }
@@ -43,20 +51,11 @@
     return [_recipes count];
 }
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{    
     RecipeCollectionViewCell *cell = (RecipeCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass(RecipeCollectionViewCell.class) forIndexPath:indexPath];
     
-    cell.frontView = [[RecipeCVCFrontView alloc] init];
     cell.frontView.recipeLabel.text = [_recipes objectAtIndex:indexPath.row];
-    
-    [cell.frontView setNeedsUpdateConstraints];
-    [cell.frontView updateConstraintsIfNeeded];
-    
-    cell.rearView = [[RecipeCVCRearView alloc] init];
-    
-    [cell.rearView setNeedsUpdateConstraints];
-    [cell.rearView updateConstraintsIfNeeded];
     
     [cell setNeedsUpdateConstraints];
     [cell updateConstraintsIfNeeded];
@@ -100,5 +99,13 @@
  }
  */
 
+- (UIColor *)randomColor
+{
+    CGFloat hue = ( arc4random() % 256 / 256.0 );  //  0.0 to 1.0
+    CGFloat saturation = ( arc4random() % 128 / 256.0 ) + 0.5;  //  0.5 to 1.0, away from white
+    CGFloat brightness = ( arc4random() % 128 / 256.0 ) + 0.5;  //  0.5 to 1.0, away from black
+    
+    return [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1];
+}
 
 @end

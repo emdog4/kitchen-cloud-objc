@@ -38,9 +38,6 @@
     
     [self addSubview:_recipeLabel];
     
-//    [_constraints addObject:[NSLayoutConstraint constraintWithItem:_recipeLabel attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:0 constant:0]];
-//    [_constraints addObject:[NSLayoutConstraint constraintWithItem:_recipeLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:0 constant:0]];
-    
     [_constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[_recipeLabel]-|" options:0 metrics:nil views:_bindings]];
     [_constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_recipeLabel]-|" options:0 metrics:nil views:_bindings]];
     

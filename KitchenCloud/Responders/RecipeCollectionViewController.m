@@ -16,7 +16,9 @@
     UICollectionView *_collectionView;
     RecipeCVDelegateDatasource *_delegateDataSource;
     DynamicCollectionViewFlowLayout *_dynamicFlowLayout;
-    UISwipeGestureRecognizer *_swipeGesture;
+    UISwipeGestureRecognizer *_swipeGestureLeft;
+    UISwipeGestureRecognizer *_swipeGestureRight;
+
 }
 
 @end
@@ -40,9 +42,14 @@
         
         [_collectionView registerClass:RecipeCollectionViewCell.class forCellWithReuseIdentifier:NSStringFromClass(RecipeCollectionViewCell.class)];
         
-        _swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeGesture:)];
+        _swipeGestureLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeGesture:)];
+        _swipeGestureRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeGesture:)];
+    
+        _swipeGestureLeft.direction = UISwipeGestureRecognizerDirectionLeft;
+        _swipeGestureRight.direction = UISwipeGestureRecognizerDirectionRight;
         
-        [_collectionView addGestureRecognizer:_swipeGesture];
+        [_collectionView addGestureRecognizer:_swipeGestureLeft];
+        [_collectionView addGestureRecognizer:_swipeGestureRight];
         
         [self.view setNeedsUpdateConstraints];
         [self.view updateConstraintsIfNeeded];
@@ -53,27 +60,27 @@
 
 - (void)swipeGesture:(UISwipeGestureRecognizer *)sender
 {
-    if (sender == _swipeGesture)
+    if ([sender isKindOfClass:UISwipeGestureRecognizer.class])
     {
-        CGPoint _swipe = [_swipeGesture locationInView:_collectionView];
+        CGPoint _swipe = [sender locationInView:_collectionView];
         NSIndexPath *_indexPath = [_collectionView indexPathForItemAtPoint:_swipe];
         RecipeCollectionViewCell *_cell = (RecipeCollectionViewCell *)[_collectionView cellForItemAtIndexPath:_indexPath];
         
         if (sender.direction == UISwipeGestureRecognizerDirectionLeft)
-        {
-            /// Flip
-            [UIView transitionFromView:_cell.frontView toView:_cell.rearView duration:0.5 options:UIViewAnimationOptionTransitionFlipFromLeft completion:^(BOOL finished) {
-                [_cell setNeedsUpdateConstraints];
-                _cell.frontView.hidden = YES;
-            }];
-        }
-        else if (sender.direction == UISwipeGestureRecognizerDirectionRight)
         {
             [UIView transitionFromView:_cell.frontView toView:_cell.rearView duration:0.5 options:UIViewAnimationOptionTransitionFlipFromRight completion:^(BOOL finished) {
                 [_cell setNeedsUpdateConstraints];
                 _cell.frontView.hidden = YES;
             }];
         }
+        else if (sender.direction == UISwipeGestureRecognizerDirectionRight)
+        {
+            _cell.frontView.hidden = NO;
+            [UIView transitionFromView:_cell.rearView toView:_cell.frontView duration:0.5 options:UIViewAnimationOptionTransitionFlipFromLeft completion:^(BOOL finished) {
+                [_cell setNeedsUpdateConstraints];
+            }];
+        }
+
     }
 }
 

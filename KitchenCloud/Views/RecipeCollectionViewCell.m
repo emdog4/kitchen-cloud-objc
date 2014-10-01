@@ -10,11 +10,15 @@
 
 @implementation RecipeCollectionViewCell
 
-- (instancetype)init
+- (instancetype)initWithFrame:(CGRect)frame
 {
-    if (self = [super init])
+    if (self = [super initWithFrame:frame])
     {
-        self.backgroundView.backgroundColor = [self randomColor];
+        _frontView = [[RecipeCVCFrontView alloc] init];
+        _frontView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+        
+        _rearView = [[RecipeCVCRearView alloc] init];
+        _rearView.backgroundColor = [UIColor groupTableViewBackgroundColor];
     }
     return self;
 }
@@ -37,13 +41,6 @@
     [super updateConstraints];
 }
 
-- (UIColor *)randomColor
-{
-    CGFloat hue = ( arc4random() % 256 / 256.0 );  //  0.0 to 1.0
-    CGFloat saturation = ( arc4random() % 128 / 256.0 ) + 0.5;  //  0.5 to 1.0, away from white
-    CGFloat brightness = ( arc4random() % 128 / 256.0 ) + 0.5;  //  0.5 to 1.0, away from black
-    
-    return [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1];
-}
+
 
 @end
