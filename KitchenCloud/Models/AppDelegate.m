@@ -9,8 +9,8 @@
 #import "AppDelegate.h"
 #import "RecipeSplitViewControllerDelegate.h"
 
-#import "RecipeListViewController.h"
 #import "EmptyRecipeViewController.h"
+#import "RecipeCollectionViewController.h"
 
 @interface AppDelegate ()
 {
@@ -26,7 +26,7 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    RecipeListViewController *_listVC = [[RecipeListViewController alloc] init];
+    RecipeCollectionViewController *_recipeCollectionVC = [[RecipeCollectionViewController alloc] init];
     
     EmptyRecipeViewController *_emptyVC = [[EmptyRecipeViewController alloc] init];
     
@@ -34,7 +34,7 @@
     
     _splitVCDelegate = [[RecipeSplitViewControllerDelegate alloc] init];
     
-    _splitViewController.viewControllers = @[_listVC, _emptyVC];
+    _splitViewController.viewControllers = @[_recipeCollectionVC, _emptyVC];
     _splitViewController.preferredPrimaryColumnWidthFraction = 0.5;
     _splitViewController.delegate = _splitVCDelegate;
     _splitViewController.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
