@@ -19,22 +19,41 @@
         
         _rearView = [[RecipeCVCRearView alloc] init];
         _rearView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+        
+        _editingView = [[UIView alloc] init];
+        _editingView.backgroundColor = [UIColor redColor];
+        _editingView.translatesAutoresizingMaskIntoConstraints = NO;
+
+        [self.contentView addSubview:_rearView];
+        [self.contentView addSubview:_frontView];
     }
     return self;
 }
 
 - (void)updateConstraints
 {
-    NSDictionary *_bindings = NSDictionaryOfVariableBindings(_frontView, _rearView);
+    NSDictionary *_bindings = NSDictionaryOfVariableBindings(_frontView, _rearView, _editingView);
     NSMutableArray *_constraints = [NSMutableArray array];
     
-    [self.contentView addSubview:_rearView];
-    [self.contentView addSubview:_frontView];
+    _frontV = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_frontView]|" options:0 metrics:nil views:_bindings];
+    [_constraints addObjectsFromArray:_frontV];
     
-    [_constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[_frontView]-|" options:0 metrics:nil views:_bindings]];
-    [_constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_frontView]-|" options:0 metrics:nil views:_bindings]];
-    [_constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[_rearView]-|" options:0 metrics:nil views:_bindings]];
-    [_constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_rearView]-|" options:0 metrics:nil views:_bindings]];
+    if ([_editingView superview])
+    {
+        _editingV = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_editingView]|" options:0 metrics:nil views:_bindings];
+        [_constraints addObjectsFromArray:_editingV];
+        _frontEditingH = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_frontView]-[_editingView]|" options:0 metrics:nil views:_bindings];
+        [_constraints addObjectsFromArray:_frontEditingH];
+    }
+    else
+    {
+        _rearV = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_rearView]|" options:0 metrics:nil views:_bindings];
+        [_constraints addObjectsFromArray:_rearV];
+        _frontH = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_frontView]|" options:0 metrics:nil views:_bindings];
+        [_constraints addObjectsFromArray:_frontH];
+        _rearH = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_rearView]|" options:0 metrics:nil views:_bindings];
+        [_constraints addObjectsFromArray:_rearH];
+    }
     
     [self.contentView addConstraints:_constraints];
     

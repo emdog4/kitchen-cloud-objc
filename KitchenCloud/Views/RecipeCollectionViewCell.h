@@ -15,5 +15,11 @@
 
 @property (strong, nonatomic) RecipeCVCFrontView *frontView;
 @property (strong, nonatomic) RecipeCVCRearView *rearView;
-
+@property (strong, nonatomic) UIView *editingView;
+@property (strong, nonatomic) NSArray *editingV;
+@property (strong, nonatomic) NSArray *frontV;
+@property (strong, nonatomic) NSArray *rearV;
+@property (strong, nonatomic) NSArray *frontH;
+@property (strong, nonatomic) NSArray *rearH;
+@property (strong, nonatomic) NSArray *frontEditingH;
 @end

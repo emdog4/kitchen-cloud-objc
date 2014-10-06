@@ -10,6 +10,7 @@
 #import "DynamicCollectionViewFlowLayout.h"
 #import "RecipeCVDelegateDatasource.h"
 #import "RecipeCollectionViewCell.h"
+#import "RecipeMainViewController.h"
 
 @interface RecipeCollectionViewController ()
 {    
@@ -18,6 +19,7 @@
     DynamicCollectionViewFlowLayout *_dynamicFlowLayout;
     UISwipeGestureRecognizer *_swipeGestureLeft;
     UISwipeGestureRecognizer *_swipeGestureRight;
+    UITapGestureRecognizer *_tapGesture;
 
 }
 
@@ -44,12 +46,16 @@
         
         _swipeGestureLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeGesture:)];
         _swipeGestureRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeGesture:)];
-    
+        _tapGesture= [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
+        
         _swipeGestureLeft.direction = UISwipeGestureRecognizerDirectionLeft;
         _swipeGestureRight.direction = UISwipeGestureRecognizerDirectionRight;
         
         [_collectionView addGestureRecognizer:_swipeGestureLeft];
         [_collectionView addGestureRecognizer:_swipeGestureRight];
+        [_collectionView addGestureRecognizer:_tapGesture];
+        
+        [self.view addSubview:_collectionView];
         
         [self.view setNeedsUpdateConstraints];
         [self.view updateConstraintsIfNeeded];
@@ -68,9 +74,19 @@
         
         if (sender.direction == UISwipeGestureRecognizerDirectionLeft)
         {
-            [UIView transitionFromView:_cell.frontView toView:_cell.rearView duration:0.5 options:UIViewAnimationOptionTransitionFlipFromRight completion:^(BOOL finished) {
+            [_cell.contentView removeConstraints:_cell.contentView.constraints];
+            
+            [_cell.contentView addSubview:_cell.editingView];
+
+            [UIView animateWithDuration:0.5 animations:^{
+                CGRect newFrame = _cell.contentView.frame;
+                CGFloat offset = newFrame.size.width / 2;
+                newFrame.size.width += offset;
+                newFrame.origin.x -= offset;
+                _cell.contentView.frame = newFrame;
                 [_cell setNeedsUpdateConstraints];
-                _cell.frontView.hidden = YES;
+            } completion:^(BOOL finished) {
+                ///
             }];
         }
         else if (sender.direction == UISwipeGestureRecognizerDirectionRight)
@@ -84,10 +100,22 @@
     }
 }
 
+- (void)tap:(UITapGestureRecognizer *)sender
+{
+    if ([sender isKindOfClass:UITapGestureRecognizer.class])
+    {
+        CGPoint _tap = [sender locationInView:_collectionView];
+        NSIndexPath *_indexPath = [_collectionView indexPathForItemAtPoint:_tap];
+        RecipeCollectionViewCell *_cell = (RecipeCollectionViewCell *)[_collectionView cellForItemAtIndexPath:_indexPath];
+        
+        RecipeMainViewController *_vc = [[RecipeMainViewController alloc] init];
+        _vc.title = _cell.frontView.recipeLabel.text;
+        [self.splitViewController showDetailViewController:_vc sender:self];
+    }
+}
+
 - (void)updateViewConstraints
 {
-    [self.view addSubview:_collectionView];
-    
     id _topLayoutGuide = self.topLayoutGuide;
     
     NSMutableArray *_constraints = [NSMutableArray array];
