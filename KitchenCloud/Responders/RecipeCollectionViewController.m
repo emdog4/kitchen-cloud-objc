@@ -20,9 +20,7 @@
     UISwipeGestureRecognizer *_swipeGestureLeft;
     UISwipeGestureRecognizer *_swipeGestureRight;
     UITapGestureRecognizer *_tapGesture;
-
 }
-
 @end
 
 @implementation RecipeCollectionViewController
@@ -72,18 +70,25 @@
         NSIndexPath *_indexPath = [_collectionView indexPathForItemAtPoint:_swipe];
         RecipeCollectionViewCell *_cell = (RecipeCollectionViewCell *)[_collectionView cellForItemAtIndexPath:_indexPath];
         
+        [_cell.contentView removeConstraints:_cell.contentView.constraints];
+        
+        if ([_cell.editingView superview])
+        {
+            [_cell.editingView removeFromSuperview];
+        }
+        else
+        {
+            [_cell.contentView addSubview:_cell.editingView];
+        }
+        
         if (sender.direction == UISwipeGestureRecognizerDirectionLeft)
         {
-            [_cell.contentView removeConstraints:_cell.contentView.constraints];
-            
-            [_cell.contentView addSubview:_cell.editingView];
-
             [UIView animateWithDuration:0.5 animations:^{
-                CGRect newFrame = _cell.contentView.frame;
-                CGFloat offset = newFrame.size.width / 2;
-                newFrame.size.width += offset;
+                CGRect newFrame = _cell.frame;
+                CGFloat offset = newFrame.size.width / 4;
                 newFrame.origin.x -= offset;
-                _cell.contentView.frame = newFrame;
+                newFrame.size.width += offset;
+                _cell.frame = newFrame;
                 [_cell setNeedsUpdateConstraints];
             } completion:^(BOOL finished) {
                 ///
@@ -91,9 +96,15 @@
         }
         else if (sender.direction == UISwipeGestureRecognizerDirectionRight)
         {
-            _cell.frontView.hidden = NO;
-            [UIView transitionFromView:_cell.rearView toView:_cell.frontView duration:0.5 options:UIViewAnimationOptionTransitionFlipFromLeft completion:^(BOOL finished) {
+            [UIView animateWithDuration:0.5 animations:^{
+                CGRect newFrame = _cell.frame;
+                CGFloat offset = newFrame.size.width / 4;
+                newFrame.origin.x = 0;
+                newFrame.size.width -= offset;
+                _cell.frame = newFrame;
                 [_cell setNeedsUpdateConstraints];
+            } completion:^(BOOL finished) {
+                ///
             }];
         }
 

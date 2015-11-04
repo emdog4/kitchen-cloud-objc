@@ -21,7 +21,6 @@
 		D237C0DE19DA6FA0004FE9F0 /* DynamicCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D237C0DD19DA6FA0004FE9F0 /* DynamicCollectionViewFlowLayout.m */; };
 		D252D64119DB1B4400DD22DD /* RecipeCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D252D64019DB1B4400DD22DD /* RecipeCollectionViewCell.m */; };
 		D252D64719DB1EC300DD22DD /* RecipeCVCFrontView.m in Sources */ = {isa = PBXBuildFile; fileRef = D252D64619DB1EC300DD22DD /* RecipeCVCFrontView.m */; };
-		D252D64A19DB1ECE00DD22DD /* RecipeCVCRearView.m in Sources */ = {isa = PBXBuildFile; fileRef = D252D64919DB1ECE00DD22DD /* RecipeCVCRearView.m */; };
 		D252D65019DB214000DD22DD /* RecipeCVCRearCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D252D64F19DB214000DD22DD /* RecipeCVCRearCollectionViewCell.m */; };
 		D252D65319DB297E00DD22DD /* RecipeCVDelegateDatasource.m in Sources */ = {isa = PBXBuildFile; fileRef = D252D65219DB297E00DD22DD /* RecipeCVDelegateDatasource.m */; };
 		D252D65619DB345400DD22DD /* RecipeCVRearCVDelegateDatasource.m in Sources */ = {isa = PBXBuildFile; fileRef = D252D65519DB345400DD22DD /* RecipeCVRearCVDelegateDatasource.m */; };
@@ -94,8 +93,6 @@
 		D252D64019DB1B4400DD22DD /* RecipeCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RecipeCollectionViewCell.m; path = ../Views/RecipeCollectionViewCell.m; sourceTree = "<group>"; };
 		D252D64519DB1EC300DD22DD /* RecipeCVCFrontView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecipeCVCFrontView.h; sourceTree = "<group>"; };
 		D252D64619DB1EC300DD22DD /* RecipeCVCFrontView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipeCVCFrontView.m; sourceTree = "<group>"; };
-		D252D64819DB1ECE00DD22DD /* RecipeCVCRearView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecipeCVCRearView.h; sourceTree = "<group>"; };
-		D252D64919DB1ECE00DD22DD /* RecipeCVCRearView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipeCVCRearView.m; sourceTree = "<group>"; };
 		D252D64E19DB214000DD22DD /* RecipeCVCRearCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecipeCVCRearCollectionViewCell.h; sourceTree = "<group>"; };
 		D252D64F19DB214000DD22DD /* RecipeCVCRearCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipeCVCRearCollectionViewCell.m; sourceTree = "<group>"; };
 		D252D65119DB297E00DD22DD /* RecipeCVDelegateDatasource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecipeCVDelegateDatasource.h; sourceTree = "<group>"; };
@@ -304,8 +301,6 @@
 			children = (
 				D252D64519DB1EC300DD22DD /* RecipeCVCFrontView.h */,
 				D252D64619DB1EC300DD22DD /* RecipeCVCFrontView.m */,
-				D252D64819DB1ECE00DD22DD /* RecipeCVCRearView.h */,
-				D252D64919DB1ECE00DD22DD /* RecipeCVCRearView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -513,7 +508,6 @@
 				D25AFCDF19D5FE3300847B2B /* RecipeCardTextView.m in Sources */,
 				D25AFCD119D5FE3300847B2B /* Step.m in Sources */,
 				D2280C3219E23772004242A1 /* RecipeMainViewController.m in Sources */,
-				D252D64A19DB1ECE00DD22DD /* RecipeCVCRearView.m in Sources */,
 				D237C0D019D90C4A004FE9F0 /* CloudFlipButton.m in Sources */,
 				D25AFCD019D5FE3300847B2B /* Recipe.m in Sources */,
 				D237C0D719DA5512004FE9F0 /* RecipeCollectionViewController.m in Sources */,

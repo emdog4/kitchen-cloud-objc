@@ -61,8 +61,8 @@
         CGPoint anchorPoint = spring.anchorPoint;
         CGFloat distanceFromTouchY = fabsf(touchLocation.y - anchorPoint.y);
         CGFloat distanceFromTouchX = fabsf(touchLocation.x - anchorPoint.x);
-        CGFloat scrollResistenceY = distanceFromTouchY / 1000;
-        CGFloat scrollResistenceX = distanceFromTouchX / 1000;
+        CGFloat scrollResistenceY = distanceFromTouchY / 500;
+        CGFloat scrollResistenceX = distanceFromTouchX / 500;
         
         
         UICollectionViewLayoutAttributes *item = [spring.items firstObject];

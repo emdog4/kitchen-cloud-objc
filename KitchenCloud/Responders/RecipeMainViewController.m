@@ -40,7 +40,7 @@
         _mainCollectionView.delegate = _delegateDatasource;
         _mainCollectionView.dataSource = _delegateDatasource;
         _mainCollectionView.translatesAutoresizingMaskIntoConstraints = NO;
-        _mainCollectionView.backgroundColor = [UIColor clearColor];
+        _mainCollectionView.backgroundColor = [UIColor whiteColor];
         
         [_mainCollectionView registerClass:UICollectionViewCell.class forCellWithReuseIdentifier:NSStringFromClass(UICollectionViewCell.class)];
         
